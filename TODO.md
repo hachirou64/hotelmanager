@@ -1,0 +1,23 @@
+# TODO: Créer les Modèles et Contrôleurs pour le Système de Gestion Hôtelière
+
+- [x] Créer le modèle Role
+- [x] Créer le modèle RoomType
+- [x] Créer le modèle Room
+- [x] Créer le modèle Client
+- [x] Créer le modèle Reservation
+- [x] Créer le modèle Personnel
+- [x] Créer le modèle Invoice
+- [x] Créer le modèle Payment
+- [x] Créer le modèle Promotion
+- [x] Créer le modèle HotelParameter
+- [x] Mettre à jour le modèle User pour inclure la relation avec Role
+- [x] Créer le contrôleur RoleController
+- [x] Créer le contrôleur RoomTypeController
+- [x] Créer le contrôleur RoomController
+- [x] Créer le contrôleur ClientController
+- [x] Créer le contrôleur ReservationController
+- [x] Créer le contrôleur PersonnelController
+- [x] Créer le contrôleur InvoiceController
+- [x] Créer le contrôleur PaymentController
+- [x] Créer le contrôleur PromotionController
+- [x] Créer le contrôleur HotelParameterController
