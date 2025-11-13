@@ -21,3 +21,4 @@
 - [x] Créer le contrôleur PaymentController
 - [x] Créer le contrôleur PromotionController
 - [x] Créer le contrôleur HotelParameterController
+- [x] Définir les routes API pour tous les contrôleurs
