@@ -24,8 +24,14 @@ class RoleMiddleware
 
         $user = Auth::user();
 
-        if (!$user->role || $user->role->nom_role !== $role) {
-            abort(403, 'Accès non autorisé. Vous devez être ' . $role . ' pour accéder à cette page.');
+        if (!$user->role) {
+            abort(403, 'Accès non autorisé. Aucun rôle assigné.');
+        }
+
+        $allowedRoles = explode(',', $role);
+
+        if (!in_array($user->role->nom_role, $allowedRoles)) {
+            abort(403, 'Accès non autorisé. Vous devez être l\'un des rôles suivants : ' . $role . ' pour accéder à cette page.');
         }
 
         return $next($request);

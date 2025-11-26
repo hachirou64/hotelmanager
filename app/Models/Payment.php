@@ -17,11 +17,16 @@ class Payment extends Model
         'date_paiement',
         'montant_paye',
         'mode_paiement',
+        'transaction_id',
+        'provider',
+        'status',
+        'metadata',
     ];
 
     protected $casts = [
         'date_paiement' => 'date',
         'montant_paye' => 'decimal:2',
+        'metadata' => 'array',
     ];
 
     public function invoice()

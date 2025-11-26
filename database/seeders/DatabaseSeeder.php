@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $adminRole = Role::create(['nom_role' => 'Admin']);
         $managerRole = Role::create(['nom_role' => 'Manager']);
         $staffRole = Role::create(['nom_role' => 'Staff']);
+        $clientRole = Role::create(['nom_role' => 'Client']);
 
         // Create an admin user
         User::create([
@@ -74,7 +75,31 @@ class DatabaseSeeder extends Seeder
             'capacite_max' => 4,
         ]);
 
-        // Create clients
+        // Create clients with associated users
+        $clientUser1 = User::create([
+            'name' => 'Jean Dupont',
+            'email' => 'jean.dupont@example.com',
+            'password' => bcrypt('password'),
+            'role_id' => $clientRole->id_role,
+            'preferences' => json_encode(['theme' => 'light']),
+        ]);
+
+        $clientUser2 = User::create([
+            'name' => 'Marie Martin',
+            'email' => 'marie.martin@example.com',
+            'password' => bcrypt('password'),
+            'role_id' => $clientRole->id_role,
+            'preferences' => json_encode(['theme' => 'light']),
+        ]);
+
+        $clientUser3 = User::create([
+            'name' => 'Pierre Dubois',
+            'email' => 'pierre.dubois@example.com',
+            'password' => bcrypt('password'),
+            'role_id' => $clientRole->id_role,
+            'preferences' => json_encode(['theme' => 'light']),
+        ]);
+
         Client::create([
             'nom' => 'Dupont',
             'prenom' => 'Jean',
@@ -82,6 +107,7 @@ class DatabaseSeeder extends Seeder
             'telephone' => '+33123456789',
             'historique_sejours' => json_encode(['2023-01-15', '2023-06-20']),
             'preferences' => json_encode(['vue_mer' => true, 'climatisation' => true]),
+            'user_id' => $clientUser1->id,
         ]);
 
         Client::create([
@@ -91,6 +117,7 @@ class DatabaseSeeder extends Seeder
             'telephone' => '+33987654321',
             'historique_sejours' => json_encode(['2023-03-10']),
             'preferences' => json_encode(['animaux_acceptes' => true]),
+            'user_id' => $clientUser2->id,
         ]);
 
         Client::create([
@@ -100,6 +127,7 @@ class DatabaseSeeder extends Seeder
             'telephone' => '+33555666777',
             'historique_sejours' => json_encode([]),
             'preferences' => json_encode(['wifi_gratuit' => true]),
+            'user_id' => $clientUser3->id,
         ]);
     }
 }

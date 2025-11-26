@@ -1,47 +1,33 @@
-# TODO: Améliorer la mise en forme de ReservationPage.jsx
+# TODO: Implement Reservation Functionality for Clients and Admins
 
-## Étapes à suivre pour améliorer le design et la mise en page
+## Database & Models
+- [x] Create migration to add 'user_id' to clients table
+- [x] Update Client model to add belongsTo User relationship
+- [x] Update User model to add hasOne Client relationship
+- [x] Update AuthController register method to create Client record linked to User
 
-- [x] Ajouter un en-tête attrayant avec titre et description
-- [x] Améliorer le design du formulaire : ajouter des icônes, améliorer les styles des inputs et selects
-- [x] Renforcer la mise en page générale : espacement, couleurs de fond, ombres
-- [x] Améliorer l'apparence de la liste des réservations : cartes plus modernes, badges de statut améliorés
-- [x] Rendre la mise en page responsive pour les appareils mobiles
-- [x] Ajouter des effets de survol et transitions subtiles pour une meilleure UX
-- [x] Tester les changements en exécutant le serveur de développement
+## Client-Side API
+- [x] Add client-specific routes in api.php (/api/client/reservations) with auth middleware
+- [x] Create ClientReservationController with index, store, update, destroy methods
+- [x] Implement availability check in store method (no overlapping reservations)
+- [x] Implement modify reservation logic (only if 'en cours')
 
-## TODO: Créer les vues Blade pour les nouvelles routes
+## Admin-Side Enhancements
+- [x] Update ReservationController to include 'payée' in status validation
+- [x] Add filtering methods in ReservationController (by date, status)
+- [ ] Update reservations.blade.php to include action buttons (confirm, cancel, mark paid, change room)
 
-## Étapes à suivre pour créer les vues Blade
+## Frontend Updates
+- [ ] Update ReservationForm.jsx to check availability before submission
+- [x] Update ClientReservations.jsx to enable modify functionality (redirect to form with pre-filled data)
+- [ ] Ensure public-rooms.blade.php shows only available rooms or integrates date selection
 
-- [x] Créer la vue rooms.blade.php avec liste des chambres
-- [x] Créer la vue clients.blade.php avec liste des clients
-- [x] Créer la vue billing.blade.php avec liste des factures
-- [x] Créer la vue personnel.blade.php avec liste du personnel
-- [x] Créer la vue settings.blade.php avec paramètres système
-- [x] Mettre à jour les liens de navigation dans dashboard.blade.php pour pointer vers les bonnes routes
-- [x] Mettre à jour les actions rapides dans dashboard.blade.php pour pointer vers les bonnes routes
+## Additional Features
+- [x] Add route for client reservations view (/client-reservations) in web.php
+- [ ] Implement modify reservation: pre-fill form with existing data
 
-## TODO: Rendre fonctionnels les liens du menu utilisateur dans l'en-tête
-
-## Étapes à suivre pour les liens utilisateur
-
-- [x] Ajouter les routes pour le profil utilisateur et les paramètres utilisateur
-- [x] Créer la vue profile.blade.php pour la gestion du profil
-- [x] Créer la vue user-settings.blade.php pour les paramètres utilisateur
-- [x] Mettre à jour les liens du dropdown utilisateur dans toutes les vues pour pointer vers les bonnes routes
-
-## TODO: Rendre l'application mobile responsive
-
-## Étapes à suivre pour la responsivité mobile
-
-- [x] Mettre à jour dashboard.blade.php avec header fixe et menu mobile
-- [x] Mettre à jour personnel.blade.php avec header fixe et menu mobile
-- [x] Mettre à jour settings.blade.php avec header fixe et menu mobile
-- [x] Mettre à jour user-settings.blade.php avec header fixe et menu mobile
-- [x] Mettre à jour rooms.blade.php avec header fixe et menu mobile
-- [x] Mettre à jour clients.blade.php avec header fixe et menu mobile
-- [x] Mettre à jour billing.blade.php avec header fixe et menu mobile
-- [x] Mettre à jour reservations.blade.php avec header fixe et menu mobile
-- [x] Mettre à jour profile.blade.php avec header fixe et menu mobile
-- [ ] Tester la responsivité sur différents appareils
+## Testing
+- [ ] Test client reservation creation, viewing, modifying, canceling
+- [ ] Test admin reservation management (view all, filter, actions)
+- [ ] Test availability checks
+- [ ] Ensure authentication and authorization work correctly

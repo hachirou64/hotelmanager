@@ -20,6 +20,9 @@ class UserSettingsController extends Controller
 
         // Update user preferences (you might want to create a user_preferences table or use JSON column)
         $preferences = $user->preferences ?? [];
+        if (is_string($preferences)) {
+            $preferences = json_decode($preferences, true) ?? [];
+        }
 
         $preferences['theme'] = $request->theme ?? 'auto';
         $preferences['language'] = $request->language ?? 'fr';
@@ -28,6 +31,9 @@ class UserSettingsController extends Controller
 
         $user->preferences = $preferences;
         $user->save();
+
+        // Refresh the user in session to reflect changes immediately
+        Auth::login($user);
 
         return back()->with('success', 'Paramètres sauvegardés avec succès.');
     }

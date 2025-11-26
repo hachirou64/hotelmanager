@@ -255,6 +255,9 @@
             <!-- Call to Action -->
             <div class="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
                  <!-- Utilisation de chemins statiques pour l'exemple Blade -->
+                <a href="{{ route('public.rooms') }}" class="px-8 py-4 text-lg font-bold rounded-full bg-green-500 text-white shadow-xl transition-all duration-300 hover:bg-green-600 transform hover:scale-105 text-center">
+                    Voir Chambres Disponibles
+                </a>
                 <a href="/login" class="px-8 py-4 text-lg font-bold rounded-full bg-primary text-white shadow-xl transition-all duration-300 hover:bg-primary-dark transform hover:scale-105 text-center">
                     Accéder au Tableau de Bord
                 </a>
@@ -394,18 +397,32 @@
                 </div>
                 <div>
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">Envoyez-nous un message</h3>
-                    <form class="space-y-4">
+                    <form class="space-y-4" method="POST" action="{{ route('contact.submit') }}">
+                        @csrf
                         <div>
-                            <input type="text" placeholder="Votre nom" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white">
+                            <input type="text" name="name" placeholder="Votre nom" value="{{ old('name') }}" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white">
+                            @error('name')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div>
-                            <input type="email" placeholder="Votre email" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white">
+                            <input type="email" name="email" placeholder="Votre email" value="{{ old('email') }}" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white">
+                            @error('email')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div>
-                            <textarea rows="4" placeholder="Votre message" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white"></textarea>
+                            <textarea name="message" rows="4" placeholder="Votre message" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white">{{ old('message') }}</textarea>
+                            @error('message')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-primary-dark transition">Envoyer</button>
                     </form>
+
+                    @if(session('success'))
+                        <p class="mt-4 text-green-600 font-semibold">{{ session('success') }}</p>
+                    @endif
                 </div>
             </div>
         </div>
