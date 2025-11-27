@@ -28,7 +28,7 @@ class AuthController extends Controller
             $roleName = $user->role->nom_role;
 
             if (in_array($roleName, ['Admin', 'Manager', 'Staff'])) {
-                return redirect()->intended('/reservations');
+                return redirect()->intended('/dashboard');
             } elseif ($roleName === 'Client') {
                 return redirect()->intended('/client-reservations');
             } else {
