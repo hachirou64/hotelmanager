@@ -4,7 +4,7 @@
 <div class="max-w-xl mx-auto p-6">
     <h1 class="text-2xl font-semibold mb-4">Payer la réservation #{{ $reservation->id_reservation }}</h1>
 
-    <p class="mb-4">Montant à payer: <strong>{{ number_format(app(\App\Http\Controllers\PaymentController::class)->calculateAmountForReservation($reservation), 2) }} </strong> </p>
+    <p class="mb-4">Montant à payer: <strong>{{ number_format($amount, 2) }} €</strong> </p>
 
     <form method="POST" action="{{ route('reservations.pay', $reservation) }}">
         @csrf

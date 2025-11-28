@@ -212,30 +212,35 @@
 </head>
 <body class="bg-gray-50 dark:bg-slate-900">
     <!-- HEADER -->
-    <header class="bg-white dark:bg-slate-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md shadow-lg border-b border-gray-200 dark:border-gray-700 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="/" class="flex items-center space-x-3">
-                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-1 0h-1m-4 0H7m4 0v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6m9-10V5"></path>
-                        </svg>
-                        <span class="text-xl font-bold text-gray-900 dark:text-white">Hôtel Manager</span>
+                    <a href="/" class="flex items-center space-x-3 group">
+                        <div class="p-2 rounded-lg bg-gradient-to-r from-primary to-primary-dark group-hover:scale-110 transition-transform duration-200">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-1 0h-1m-4 0H7m4 0v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6m9-10V5"></path>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">Hôtel Manager</span>
                     </a>
                 </div>
 
                 <!-- Navigation -->
-                <div class="flex items-center space-x-4">
-                    <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition duration-200">Accueil</a>
-                    <a href="/login" class="px-4 py-2 rounded-md bg-primary text-white hover:bg-primary-dark">Se connecter</a>
+                <div class="flex items-center space-x-6">
+                    <a href="/" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-all duration-200 font-medium relative group">
+                        Accueil
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-200"></span>
+                    </a>
+                    <a href="/login" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-primary to-primary-dark text-white hover:from-primary-dark hover:to-primary hover:shadow-lg hover:scale-105 transition-all duration-200 font-medium">Se connecter</a>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- MAIN CONTENT -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-24">
         <!-- Header Section -->
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Chambres Disponibles</h1>
@@ -243,53 +248,117 @@
         </div>
 
         <!-- Date Selection Form -->
-        <div class="bg-white dark:bg-slate-800 shadow rounded-lg mb-6">
-            <div class="px-4 py-5 sm:p-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">Vérifier la disponibilité</h3>
-                <form method="GET" action="{{ route('public.rooms') }}" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                        <label for="date_debut" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date d'arrivée</label>
-                        <input type="date" id="date_debut" name="date_debut" value="{{ $date_debut }}" min="{{ date('Y-m-d') }}" class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 text-gray-900 dark:text-white shadow-sm focus:border-primary focus:ring-primary">
+        <div class="bg-gradient-to-r from-white to-gray-50 dark:from-slate-800 dark:to-slate-700 shadow-xl rounded-2xl mb-8 border border-gray-100 dark:border-slate-600">
+            <div class="px-6 py-8 sm:px-8">
+                <div class="text-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Vérifier la disponibilité</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Sélectionnez vos dates pour voir les chambres disponibles</p>
+                </div>
+                <form method="GET" action="{{ route('public.rooms') }}" class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="md:col-span-2">
+                        <label for="date_debut" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Date d'arrivée</label>
+                        <div class="relative">
+                            <input type="date" id="date_debut" name="date_debut" value="{{ $date_debut }}" min="{{ date('Y-m-d') }}" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-slate-600 dark:bg-slate-900 text-gray-900 dark:text-white shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 text-lg">
+                            <svg class="absolute right-3 top-3.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
                     </div>
-                    <div>
-                        <label for="date_fin" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date de départ</label>
-                        <input type="date" id="date_fin" name="date_fin" value="{{ $date_fin }}" min="{{ $date_debut ?: date('Y-m-d') }}" class="mt-1 block w-full rounded-md border-gray-300 dark:border-slate-600 dark:bg-slate-900 text-gray-900 dark:text-white shadow-sm focus:border-primary focus:ring-primary">
+                    <div class="md:col-span-2">
+                        <label for="date_fin" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Date de départ</label>
+                        <div class="relative">
+                            <input type="date" id="date_fin" name="date_fin" value="{{ $date_fin }}" min="{{ $date_debut ?: date('Y-m-d') }}" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-slate-600 dark:bg-slate-900 text-gray-900 dark:text-white shadow-sm focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200 text-lg">
+                            <svg class="absolute right-3 top-3.5 h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
                     </div>
-                    <div class="flex items-end">
-                        <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded">Rechercher</button>
+                    <div class="md:col-span-4 flex justify-center">
+                        <button type="submit" class="px-8 py-4 bg-gradient-to-r from-primary to-primary-dark hover:from-primary-dark hover:to-primary text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 text-lg flex items-center space-x-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                            <span>Rechercher</span>
+                        </button>
                     </div>
                 </form>
                 @if($date_debut && $date_fin)
-                <p class="mt-4 text-sm text-gray-600 dark:text-gray-300">Affichage des chambres disponibles du {{ \Carbon\Carbon::parse($date_debut)->format('d/m/Y') }} au {{ \Carbon\Carbon::parse($date_fin)->format('d/m/Y') }}.</p>
+                <div class="mt-6 text-center">
+                    <p class="inline-flex items-center px-4 py-2 rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-sm font-medium">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        Chambres disponibles du {{ \Carbon\Carbon::parse($date_debut)->format('d/m/Y') }} au {{ \Carbon\Carbon::parse($date_fin)->format('d/m/Y') }}
+                    </p>
+                </div>
                 @endif
             </div>
         </div>
 
         <!-- Rooms List -->
-        <div class="bg-white dark:bg-slate-800 shadow rounded-lg">
-            <div class="px-4 py-5 sm:p-6">
-                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">Liste des Chambres</h3>
-                <div class="space-y-3">
-                    @forelse($rooms as $room)
-                    <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
-                        <div>
-                            <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $room->numero_chambre }}</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Type: {{ $room->roomType->nom_type ?? 'N/A' }} - Capacité: {{ $room->capacite_max }}</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Prix: {{ $room->roomType->prix_base ?? 'N/A' }} €/nuit</p>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                                @if($date_debut && $date_fin) bg-green-100 text-green-800
-                                @elseif($room->statut === 'libre') bg-green-100 text-green-800
-                                @elseif($room->statut === 'occupée') bg-red-100 text-red-800
-                                @elseif($room->statut === 'nettoyage') bg-yellow-100 text-yellow-800
-                                @else bg-gray-100 text-gray-800
-                                @endif">
-                                @if($date_debut && $date_fin) Disponible @else {{ ucfirst($room->statut) }} @endif
-                            </span>
+        <div class="mb-8">
+            <div class="text-center mb-8">
+                <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Liste des Chambres</h3>
+                <p class="text-gray-600 dark:text-gray-300">Découvrez nos chambres confortables et modernes</p>
+            </div>
 
+            @forelse($rooms as $room)
+            <div class="bg-white dark:bg-slate-800 shadow-xl rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-600 hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] mb-6">
+                <div class="md:flex">
+                    <!-- Room Image Placeholder -->
+                    <div class="md:w-1/3 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-slate-700 dark:to-slate-600 flex items-center justify-center p-8">
+                        <div class="text-center">
+                            <svg class="w-16 h-16 text-gray-400 dark:text-slate-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-1 0h-1m-4 0H7m4 0v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6m9-10V5"></path>
+                            </svg>
+                            <p class="text-sm text-gray-500 dark:text-slate-400">Image à venir</p>
+                        </div>
+                    </div>
+
+                    <!-- Room Details -->
+                    <div class="md:w-2/3 p-6">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <div>
+                                <h4 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">{{ $room->numero_chambre }}</h4>
+                                <p class="text-lg text-gray-600 dark:text-gray-300">{{ $room->roomType->nom_type ?? 'Chambre Standard' }}</p>
+                            </div>
+                            <div class="mt-4 md:mt-0">
+                                <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold
+                                    @if($date_debut && $date_fin) bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200
+                                    @elseif($room->statut === 'libre') bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200
+                                    @elseif($room->statut === 'occupée') bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200
+                                    @elseif($room->statut === 'nettoyage') bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200
+                                    @else bg-gray-100 text-gray-800 dark:bg-slate-700 dark:text-slate-300
+                                    @endif">
+                                    @if($date_debut && $date_fin) Disponible @else {{ ucfirst($room->statut) }} @endif
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                                <span class="text-gray-600 dark:text-gray-300">Capacité: {{ $room->capacite_max }} personne{{ $room->capacite_max > 1 ? 's' : '' }}</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                </svg>
+                                <span class="text-gray-600 dark:text-gray-300">Prix: {{ $room->roomType->prix_base ?? 'N/A' }} €/nuit</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="text-gray-600 dark:text-gray-300">Équipée</span>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-3">
                             <button type="button"
-                                class="view-room-btn inline-flex items-center px-3 py-1.5 bg-primary hover:bg-primary-dark text-white text-sm font-medium rounded-md"
+                                class="view-room-btn flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2"
                                 data-room-id="{{ $room->id_chambre ?? $room->id }}"
                                 data-room-number="{{ $room->numero_chambre }}"
                                 data-room-type="{{ $room->roomType->nom_type ?? '' }}"
@@ -298,14 +367,42 @@
                                 data-room-price="{{ $room->roomType->prix_base ?? '' }}"
                                 data-room-description="{{ $room->description ?? $room->roomType->description ?? '' }}"
                                 onclick="openRoomModalFromButton(this)"
-                            >Voir</button>
+                            >
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                <span>Voir les détails</span>
+                            </button>
+
+                            @auth
+                            <a href="/book-room/{{ $room->id_chambre ?? $room->id }}{!! $date_debut && $date_fin ? '?date_debut=' . urlencode($date_debut) . '&date_fin=' . urlencode($date_fin) : '' !!}" id="book-room-link-{{ $room->id_chambre ?? $room->id }}" class="flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>Réserver</span>
+                            </a>
+                            @else
+                            <a href="/login" class="flex-1 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                </svg>
+                                <span>Se connecter</span>
+                            </a>
+                            @endauth
                         </div>
                     </div>
-                    @empty
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Aucune chambre trouvée</p>
-                    @endforelse
                 </div>
             </div>
+            @empty
+            <div class="bg-white dark:bg-slate-800 shadow-xl rounded-2xl p-12 text-center border border-gray-100 dark:border-slate-600">
+                <svg class="w-16 h-16 text-gray-400 dark:text-slate-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-1 0h-1m-4 0H7m4 0v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6m9-10V5"></path>
+                </svg>
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Aucune chambre trouvée</h3>
+                <p class="text-gray-600 dark:text-gray-300">Essayez de modifier vos dates de recherche.</p>
+            </div>
+            @endforelse
         </div>
     </main>
 

@@ -166,104 +166,177 @@
         </div>
     </header>
 
-    <!-- ABOUT SECTION -->
-    <section id="about" class="py-16 sm:py-24 lg:py-32 bg-gray-50 dark:bg-slate-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <!-- Titre Principal -->
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6">
-                Le Logiciel de Gestion Hôtelière (PMS) <span class="text-primary">Complet</span>
-            </h1>
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" style="background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.05"%3E%3Ccircle cx="30" cy="30" r="1"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
 
-            <!-- Sous-titre descriptif -->
-            <p class="max-w-3xl mx-auto text-xl text-gray-600 dark:text-gray-300 mb-8">
-                Centralisez la planification, la facturation, la gestion client et le personnel dans une interface unique, moderne et ultra-rapide, développée avec Laravel et React.
-            </p>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40">
+            <div class="text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm font-medium mb-8">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    Solution PMS Complète
+                </div>
 
-            <!-- Description détaillée -->
-            <div class="max-w-4xl mx-auto space-y-6 text-gray-600 dark:text-gray-300 mb-12">
-                <p class="text-lg">
-                    <strong>Hôtel Manager</strong> est une solution complète de Property Management System (PMS) conçue spécifiquement pour les hôtels de toutes tailles. Notre plateforme intègre tous les aspects essentiels de la gestion hôtelière :
+                <!-- Main Headline -->
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-8">
+                    Gestion Hôtelière
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+                        Intelligente
+                    </span>
+                </h1>
+
+                <!-- Subheadline -->
+                <p class="max-w-3xl mx-auto text-xl sm:text-2xl text-gray-300 mb-12 leading-relaxed">
+                    Révolutionnez la gestion de votre hôtel avec une plateforme moderne qui centralise réservations, clients, facturation et personnel en une interface intuitive et puissante.
                 </p>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
-                        <div class="text-primary mb-3">
-                            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Gestion des réservations</h3>
-                        <p class="text-sm">Calendrier visuel interactif pour une attribution optimale des chambres</p>
+                <!-- Stats -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto mb-12">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-white mb-2">99.9%</div>
+                        <div class="text-sm text-gray-400">Disponibilité</div>
                     </div>
-
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
-                        <div class="text-primary mb-3">
-                            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">CRM intégré</h3>
-                        <p class="text-sm">Base de données clients centralisée avec historique complet</p>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-white mb-2">50+</div>
+                        <div class="text-sm text-gray-400">Hôtels Clients</div>
                     </div>
-
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
-                        <div class="text-primary mb-3">
-                            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Facturation automatique</h3>
-                        <p class="text-sm">Génération de factures et suivi des paiements en temps réel</p>
-                    </div>
-
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
-                        <div class="text-primary mb-3">
-                            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Tableaux de bord</h3>
-                        <p class="text-sm">Analyses et rapports pour optimiser vos performances</p>
-                    </div>
-
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
-                        <div class="text-primary mb-3">
-                            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Gestion du personnel</h3>
-                        <p class="text-sm">Planification des tâches et suivi des équipes</p>
-                    </div>
-
-                    <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md">
-                        <div class="text-primary mb-3">
-                            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                            </svg>
-                        </div>
-                        <h3 class="font-semibold text-gray-900 dark:text-white mb-2">Technologies modernes</h3>
-                        <p class="text-sm">Laravel backend + React frontend pour des performances optimales</p>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-white mb-2">24/7</div>
+                        <div class="text-sm text-gray-400">Support</div>
                     </div>
                 </div>
 
-                <p class="text-lg max-w-3xl mx-auto">
-                    Développée avec les technologies les plus modernes, Hôtel Manager offre une expérience utilisateur fluide et des performances exceptionnelles pour répondre aux besoins des hôtels contemporains.
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{{ route('public.rooms') }}" class="group inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-1 0h-1m-4 0H7m4 0v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6m9-10V5"></path>
+                        </svg>
+                        Découvrir les Chambres
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    <a href="/register" class="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                        </svg>
+                        Commencer Gratuitement
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section id="features" class="py-24 bg-white dark:bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                    Fonctionnalités Puissantes
+                </h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                    Tout ce dont vous avez besoin pour gérer votre hôtel efficacement, dans une interface moderne et intuitive.
                 </p>
             </div>
 
-            <!-- Call to Action -->
-            <div class="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
-                 <!-- Utilisation de chemins statiques pour l'exemple Blade -->
-                <a href="{{ route('public.rooms') }}" class="px-8 py-4 text-lg font-bold rounded-full bg-green-500 text-white shadow-xl transition-all duration-300 hover:bg-green-600 transform hover:scale-105 text-center">
-                    Voir Chambres Disponibles
-                </a>
-                <a href="/login" class="px-8 py-4 text-lg font-bold rounded-full bg-primary text-white shadow-xl transition-all duration-300 hover:bg-primary-dark transform hover:scale-105 text-center">
-                    Accéder au Tableau de Bord
-                </a>
-                <a href="/register" class="px-8 py-4 text-lg font-bold rounded-full border-2 border-primary text-primary bg-white dark:bg-slate-800 transition-all duration-300 hover:bg-primary hover:text-white transform hover:scale-105 text-center">
-                    Créer un Compte
-                </a>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1: Réservations -->
+                <div class="group relative bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-slate-700 dark:to-slate-600 p-8 rounded-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-blue-100 dark:border-slate-600">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="relative">
+                        <div class="w-14 h-14 bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Gestion des Réservations</h3>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Calendrier visuel interactif avec attribution automatique des chambres et gestion intelligente des conflits.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Clients -->
+                <div class="group relative bg-gradient-to-br from-green-50 to-emerald-100 dark:from-slate-700 dark:to-slate-600 p-8 rounded-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-green-100 dark:border-slate-600">
+                    <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="relative">
+                        <div class="w-14 h-14 bg-gradient-to-r from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">CRM Intégré</h3>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Base de données clients complète avec historique des séjours, préférences et programme de fidélité intégré.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Facturation -->
+                <div class="group relative bg-gradient-to-br from-purple-50 to-violet-100 dark:from-slate-700 dark:to-slate-600 p-8 rounded-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-purple-100 dark:border-slate-600">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-violet-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="relative">
+                        <div class="w-14 h-14 bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Facturation Automatisée</h3>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Génération automatique de factures, suivi des paiements et intégrations comptables pour une gestion financière simplifiée.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 4: Analytics -->
+                <div class="group relative bg-gradient-to-br from-orange-50 to-red-100 dark:from-slate-700 dark:to-slate-600 p-8 rounded-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-orange-100 dark:border-slate-600">
+                    <div class="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="relative">
+                        <div class="w-14 h-14 bg-gradient-to-r from-orange-500 to-red-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Tableaux de Bord</h3>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Analyses en temps réel avec KPIs essentiels : taux d'occupation, RevPAR, revenus et tendances de performance.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 5: Personnel -->
+                <div class="group relative bg-gradient-to-br from-cyan-50 to-blue-100 dark:from-slate-700 dark:to-slate-600 p-8 rounded-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-cyan-100 dark:border-slate-600">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="relative">
+                        <div class="w-14 h-14 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Gestion du Personnel</h3>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Planification des équipes, suivi des tâches de nettoyage et gestion des droits d'accès pour une organisation optimale.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 6: Intégrations -->
+                <div class="group relative bg-gradient-to-br from-gray-50 to-slate-100 dark:from-slate-700 dark:to-slate-600 p-8 rounded-2xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-slate-600">
+                    <div class="absolute inset-0 bg-gradient-to-br from-gray-500/5 to-slate-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div class="relative">
+                        <div class="w-14 h-14 bg-gradient-to-r from-gray-600 to-slate-700 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">API & Intégrations</h3>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">Connectez votre PMS avec des OTAs, systèmes de paiement et autres outils hôteliers pour une automatisation complète.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

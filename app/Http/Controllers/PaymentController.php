@@ -24,7 +24,8 @@ class PaymentController extends Controller
      */
     public function showPaymentForm(Reservation $reservation)
     {
-        return view('payments.pay', ['reservation' => $reservation]);
+        $amount = $this->calculateAmountForReservation($reservation);
+        return view('payments.pay', ['reservation' => $reservation, 'amount' => $amount]);
     }
 
     /**
@@ -84,16 +85,12 @@ class PaymentController extends Controller
 
             DB::commit();
 
-            return response()->json([
-                'payment_id' => $payment->id_paiement,
-                'transaction_id' => $payment->transaction_id,
-                'status' => $payment->status,
-                'provider_payload' => $payment->metadata,
-            ]);
+            // Redirect back with success message for the client to check their phone
+            return redirect()->back()->with('success', 'Paiement initié. Veuillez vérifier votre téléphone pour confirmer le paiement.');
         } catch (\Exception $e) {
             DB::rollBack();
             report($e);
-            return response()->json(['error' => 'Impossible d\'initier le paiement'], 500);
+            return redirect()->back()->with('error', 'Impossible d\'initier le paiement. Veuillez réessayer.');
         }
     }
 
