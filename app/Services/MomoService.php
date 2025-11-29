@@ -48,41 +48,125 @@ class MomoService
             ];
         }
 
-        // Example REAL flow placeholder (adapt to your provider API):
-    $endpoint = config('momo.endpoint');
-    $clientId = config('momo.client_id');
-    $clientSecret = config('momo.client_secret');
+        // Real MOMO integration based on provider
+        return $this->initiateRealPayment($phone, $amount, $callbackUrl, $metadata, $provider);
+    }
 
-        // Acquire token (provider specific) - pseudo-code
+    /**
+     * Initiate real MOMO payment with provider-specific API calls.
+     */
+    private function initiateRealPayment(string $phone, float $amount, string $callbackUrl, array $metadata = [], string $provider = 'mtn'): array
+    {
+        $endpoint = config('momo.endpoint');
+        $clientId = config('momo.client_id');
+        $clientSecret = config('momo.client_secret');
+
+        if (!$endpoint || !$clientId || !$clientSecret) {
+            throw new \Exception('MOMO credentials not configured. Please set MOMO_ENDPOINT, MOMO_CLIENT_ID, and MOMO_CLIENT_SECRET in .env');
+        }
+
+        // Get access token
         $tokenResp = Http::withBasicAuth($clientId, $clientSecret)->post($endpoint . '/oauth/token', [
             'grant_type' => 'client_credentials',
         ]);
 
-        if (! $tokenResp->ok()) {
-            throw new \Exception('MOMO token error');
+        if (!$tokenResp->ok()) {
+            throw new \Exception('Failed to get MOMO access token: ' . $tokenResp->body());
         }
 
         $token = $tokenResp->json('access_token');
 
-        // NOTE: Real providers have different endpoints and required fields for STK push.
-        // Adapt this block to the provider's API (e.g., MTN Momo has a 'requesttopay' endpoint with specific headers).
-        $resp = Http::withToken($token)->post($endpoint . '/payments', [
-            'phone' => $phone,
-            'amount' => $amount,
-            'callback_url' => $callbackUrl,
-            'metadata' => $metadata,
-            'provider' => $provider,
+        // Provider-specific STK push implementation
+        switch (strtolower($provider)) {
+            case 'mtn':
+                return $this->initiateMtnPayment($token, $endpoint, $phone, $amount, $callbackUrl, $metadata);
+            case 'moov':
+                return $this->initiateMoovPayment($token, $endpoint, $phone, $amount, $callbackUrl, $metadata);
+            case 'celtis':
+                return $this->initiateCeltisPayment($token, $endpoint, $phone, $amount, $callbackUrl, $metadata);
+            default:
+                throw new \Exception("Unsupported MOMO provider: {$provider}");
+        }
+    }
+
+    /**
+     * Initiate MTN MOMO payment (STK push).
+     */
+    private function initiateMtnPayment(string $token, string $endpoint, string $phone, float $amount, string $callbackUrl, array $metadata): array
+    {
+        $resp = Http::withToken($token)->post($endpoint . '/collection/v1_0/requesttopay', [
+            'amount' => (string)$amount,
+            'currency' => 'XAF', // Adjust currency as needed
+            'externalId' => uniqid('mtn_'),
+            'payer' => [
+                'partyIdType' => 'MSISDN',
+                'partyId' => $phone,
+            ],
+            'payerMessage' => 'Hotel Reservation Payment',
+            'payeeNote' => 'Payment for reservation',
         ]);
 
-        if (! $resp->ok()) {
-            throw new \Exception('MOMO initiate error: ' . $resp->body());
+        if (!$resp->ok()) {
+            throw new \Exception('MTN MOMO payment initiation failed: ' . $resp->body());
         }
 
         $body = $resp->json();
 
         return [
-            'transaction_id' => $body['transaction_id'] ?? $body['txid'] ?? uniqid('momo_'),
-            'status' => $body['status'] ?? 'pending',
+            'transaction_id' => $body['financialTransactionId'] ?? uniqid('mtn_'),
+            'status' => 'pending',
+            'provider_payload' => $body,
+        ];
+    }
+
+    /**
+     * Initiate Moov MOMO payment (STK push).
+     */
+    private function initiateMoovPayment(string $token, string $endpoint, string $phone, float $amount, string $callbackUrl, array $metadata): array
+    {
+        // Moov API structure (adjust based on actual API documentation)
+        $resp = Http::withToken($token)->post($endpoint . '/api/v1/payments', [
+            'amount' => $amount,
+            'phone' => $phone,
+            'callback_url' => $callbackUrl,
+            'metadata' => $metadata,
+        ]);
+
+        if (!$resp->ok()) {
+            throw new \Exception('Moov MOMO payment initiation failed: ' . $resp->body());
+        }
+
+        $body = $resp->json();
+
+        return [
+            'transaction_id' => $body['transaction_id'] ?? uniqid('moov_'),
+            'status' => 'pending',
+            'provider_payload' => $body,
+        ];
+    }
+
+    /**
+     * Initiate Celtis MOMO payment (STK push).
+     */
+    private function initiateCeltisPayment(string $token, string $endpoint, string $phone, float $amount, string $callbackUrl, array $metadata): array
+    {
+        // Celtis API structure (adjust based on actual API documentation)
+        $resp = Http::withToken($token)->post($endpoint . '/api/payments/initiate', [
+            'amount' => $amount,
+            'phone_number' => $phone,
+            'callback_url' => $callbackUrl,
+            'description' => 'Hotel Reservation Payment',
+        ]);
+
+        if (!$resp->ok()) {
+            throw new \Exception('Celtis MOMO payment initiation failed: ' . $resp->body());
+        }
+
+        $body = $resp->json();
+
+        return [
+            'transaction_id' => $body['transaction_id'] ?? uniqid('celtis_'),
+            'status' => 'pending',
             'provider_payload' => $body,
         ];
     }

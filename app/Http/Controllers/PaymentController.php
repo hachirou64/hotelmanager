@@ -165,6 +165,16 @@ class PaymentController extends Controller
                         app(\App\Http\Controllers\ReservationController::class)->refreshRoomStatus($reservation->id_chambre);
                     }
                 }
+
+                // Send payment receipt email to client
+                if ($invoice && $invoice->client) {
+                    try {
+                        Mail::to($invoice->client->adresse_email)->send(new PaymentReceiptMail($invoice->client, $invoice, $payment));
+                    } catch (\Exception $e) {
+                        // Log the error but don't fail the payment process
+                        \Log::error('Failed to send payment receipt email: ' . $e->getMessage());
+                    }
+                }
             } else {
                 $payment->status = 'failed';
                 $payment->metadata = array_merge((array) $payment->metadata, ['webhook_payload' => $payload]);

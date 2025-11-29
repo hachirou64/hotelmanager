@@ -53,13 +53,18 @@ class AuthController extends Controller
             'terms' => 'required|accepted',
         ]);
 
-        $clientRole = \App\Models\Role::where('nom_role', 'Client')->first();
+        // Ensure the Client role exists, create it if not
+        $clientRole = \App\Models\Role::firstOrCreate(
+            ['nom_role' => 'Client'],
+            ['nom_role' => 'Client']
+        );
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => $clientRole ? $clientRole->id_role : null,
+            'role_id' => $clientRole->id_role,
+            'preferences' => json_encode(['theme' => 'light']),
         ]);
 
         Auth::login($user);

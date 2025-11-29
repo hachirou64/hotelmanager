@@ -30,8 +30,9 @@ class ReservationController extends Controller
     {
         $data = $request->validated();
 
-        // Basic availability check using DB column names
+        // Basic availability check using DB column names - only consider confirmed (paid) reservations
         $overlap = Reservation::where('id_chambre', $data['id_chambre'])
+            ->where('statut', 'confirmée')
             ->where(function ($q) use ($data) {
                 $q->where('date_debut', '<', $data['date_fin'])
                   ->where('date_fin', '>', $data['date_debut']);
@@ -47,12 +48,27 @@ class ReservationController extends Controller
         $clientId = $data['id_client'] ?? null;
 
         if (empty($clientId)) {
-            // If a logged-in user exists, try to associate by email
+            // If a logged-in user exists, try to associate by user_id or email
             if ($request->user()) {
-                $email = $request->user()->email ?? null;
-                if ($email) {
+                $user = $request->user();
+                $email = $user->email ?? null;
+
+                // First try to find existing client by user_id
+                $client = Client::where('user_id', $user->id)->first();
+
+                if (!$client && $email) {
+                    // If not found by user_id, try by email and link to user
+                    $client = Client::where('adresse_email', $email)->first();
+                    if ($client) {
+                        // Link existing client to user account
+                        $client->update(['user_id' => $user->id]);
+                    }
+                }
+
+                if (!$client) {
+                    // Create new client linked to user
                     // Try to split user name into nom/prenom when possible
-                    $userName = $request->user()->name ?? null;
+                    $userName = $user->name ?? null;
                     $nom = $userName;
                     $prenom = '';
                     if ($userName && str_contains($userName, ' ')) {
@@ -61,15 +77,15 @@ class ReservationController extends Controller
                         $nom = implode(' ', $parts) ?: $prenom;
                     }
 
-                    $client = Client::firstOrCreate([
-                        'adresse_email' => $email,
-                    ], [
+                    $client = Client::create([
+                        'user_id' => $user->id,
                         'nom' => $nom ?? '',
                         'prenom' => $prenom ?? '',
+                        'adresse_email' => $email,
                         'telephone' => $request->input('client_telephone') ?? '',
                     ]);
-                    $clientId = $client->id_client;
                 }
+                $clientId = $client->id_client;
             }
 
             // If still missing and form provided an email, create/find client by that email
@@ -158,8 +174,8 @@ class ReservationController extends Controller
     }
 
     /**
-     * Recalculate and update the room status based on current reservations.
-     * If there is any non-cancelled reservation that covers today, mark 'occupée', else 'libre'.
+     * Recalculate and update the room status based on current confirmed (paid) reservations.
+     * If there is any confirmed reservation that covers today, mark 'occupée', else 'libre'.
      */
     private function refreshRoomStatus($roomId)
     {
@@ -167,13 +183,13 @@ class ReservationController extends Controller
             $today = now()->toDateString();
 
             $hasActiveToday = Reservation::where('id_chambre', $roomId)
-                ->where('statut', '!=', 'annulée')
+                ->where('statut', 'confirmée')
                 ->where('date_debut', '<=', $today)
                 ->where('date_fin', '>', $today)
                 ->exists();
 
             $hasFuture = Reservation::where('id_chambre', $roomId)
-                ->where('statut', '!=', 'annulée')
+                ->where('statut', 'confirmée')
                 ->where('date_debut', '>', $today)
                 ->exists();
 
@@ -182,7 +198,7 @@ class ReservationController extends Controller
                 if ($hasActiveToday) {
                     $room->statut = 'occupée';
                 } elseif ($hasFuture) {
-                    // mark as reserved for future bookings
+                    // mark as reserved for future confirmed bookings
                     $room->statut = 'réservée';
                 } else {
                     $room->statut = 'libre';

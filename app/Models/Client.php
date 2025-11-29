@@ -19,6 +19,7 @@ class Client extends Model
         'telephone',
         'historique_sejours',
         'preferences',
+        'user_id',
     ];
 
     protected $casts = [

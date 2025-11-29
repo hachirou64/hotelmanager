@@ -180,8 +180,8 @@
                             </h3>
 
                             <div class="floating-label">
-                                <input type="email" id="client_email" name="client_email" value="{{ old('client_email') }}" class="input-focus w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:ring-0 transition-all duration-200 text-gray-900 placeholder-transparent" required>
-                                <label for="client_email" class="text-sm font-medium">Adresse email *</label>
+                                <input type="email" id="client_email" name="client_email" value="{{ old('client_email') }}" class="input-focus w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:ring-0 transition-all duration-200 text-gray-900 placeholder-transparent">
+                                <label for="client_email" class="text-sm font-medium">Adresse email (optionnel)</label>
                                 <svg class="absolute right-3 top-3.5 h-5 w-5 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
                                 </svg>
