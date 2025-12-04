@@ -1,10 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.payment')
 
 @section('content')
-<div class="max-w-xl mx-auto p-6">
-    <h1 class="text-2xl font-semibold mb-4">Payer la réservation #{{ $reservation->id_reservation }}</h1>
-
-    <p class="mb-4">Montant à payer: <strong>{{ number_format($amount, 2) }} €</strong> </p>
+<div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+    <div class="text-center mb-6">
+        <h1 class="text-2xl font-semibold text-gray-900">Payer la réservation #{{ $reservation->id_reservation }}</h1>
+        <p class="mt-2 text-sm text-gray-600">Montant à payer: <strong>{{ number_format($amount, 2) }} €</strong></p>
+    </div>
 
     <form method="POST" action="{{ route('reservations.pay', $reservation) }}">
         @csrf

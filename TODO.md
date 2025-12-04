@@ -1,28 +1,27 @@
-# TODO: Implement Payment-Required Room Status Logic & User Account-Based Reservations
+# Fix MOMO Payment Link Issue
 
-## Objective
-1. Ensure rooms are only marked as "occupied" or "reserved" if the corresponding reservation has been paid (status 'confirmée'). Unpaid reservations ('en cours') should not affect room availability or status.
-2. Allow clients to create accounts and log in with email to make reservations, with automatic client profile association.
+## Current Status
+- Payment form exists but no links to access it from reservation views
+- Users cannot initiate MOMO payments
 
 ## Tasks
-- [x] Modify ReservationController::store() - Update availability check to only consider 'confirmée' reservations as blocking overlaps
-- [x] Modify ReservationController::refreshRoomStatus() - Change logic to only consider 'confirmée' reservations for setting room status
-- [x] Modify Client model - Add user_id to fillable fields for better user association
-- [x] Modify ReservationController::store() - Prioritize user_id association for logged-in users, link existing clients to user accounts
-- [x] Update book-room.blade.php - Add user status indicators and login prompts for better UX
-- [ ] Test the changes to ensure unpaid reservations don't mark rooms as occupied/reserved
-- [ ] Verify that successful payments properly update room status via webhook
-- [ ] Test user account-based reservations and automatic client profile linking
+- [x] Add "Payer avec MOMO" button to client-reservations.blade.php for unpaid reservations
+- [x] Remove pay buttons from admin reservations.blade.php (clients shouldn't see dashboard elements)
+- [x] Ensure buttons only show for reservations with status 'en cours' or 'confirmée'
+- [x] Verify routes exist and are properly configured
+- [x] Create dedicated payment layout without dashboard elements
+- [x] Update payment form to use clean payment layout
+- [x] Implementation completed - payment buttons now work correctly
 
-## Files to Edit
-- app/Http/Controllers/ReservationController.php
-- app/Models/Client.php
-- resources/views/book-room.blade.php
+## Next Phase: Mobile Money Integration
+- [ ] Choose payment provider (Flutterwave recommended for mobile money)
+- [ ] Install payment provider SDK/package
+- [ ] Update MomoService to use provider's mobile payment links
+- [ ] Modify payment flow to redirect to mobile payment URL
+- [ ] Update webhook handling for provider callbacks
+- [ ] Test mobile payment flow
 
-## Notes
-- Current flow: Reservation created ('en cours') -> marks room 'réservée' -> Payment success -> Reservation 'confirmée' -> Room status refreshed
-- New flow: Reservation created ('en cours') -> room remains 'libre' -> Payment success -> Reservation 'confirmée' -> Room marked 'réservée'/'occupée'
-- Availability check should allow overlapping unpaid reservations
-- Clients can now create accounts and log in with email for seamless reservations
-- Logged-in users have their client profiles automatically created/linked
-- Existing clients can be linked to user accounts upon login
+## Summary
+✅ **UI/UX Fixed**: Payment buttons accessible, clean payment page without dashboard
+⚠️ **Technical Issue**: Current implementation doesn't generate mobile-friendly payment links
+📱 **Next Step**: Integrate with Flutterwave/CinetPay/FedaPay for proper mobile money experience

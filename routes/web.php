@@ -15,6 +15,7 @@ use App\Http\Controllers\PersonnelViewController;
 use App\Http\Controllers\SettingsViewController;
 use App\Http\Controllers\UserSettingsController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReportsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -82,3 +83,5 @@ Route::get('/register', function () {
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/reports', [ReportsController::class, 'index'])->middleware('auth', 'role:Admin,Manager')->name('reports');

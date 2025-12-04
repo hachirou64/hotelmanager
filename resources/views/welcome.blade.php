@@ -145,7 +145,7 @@
             <!-- Mobile Navigation Menu -->
             <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-gray-200 dark:border-gray-700">
                 <nav class="flex flex-col space-y-3 pt-4">
-                    <a href="#about" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition duration-200 text-sm font-medium">À propos</a>
+                    <a href="#features" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition duration-200 text-sm font-medium">À propos</a>
                     <a href="#features" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition duration-200 text-sm font-medium">Fonctionnalités</a>
                     <a href="#pricing" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition duration-200 text-sm font-medium">Tarifs</a>
                     <a href="#contact" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition duration-200 text-sm font-medium">Contact</a>
@@ -191,7 +191,7 @@
 
                 <!-- Subheadline -->
                 <p class="max-w-3xl mx-auto text-xl sm:text-2xl text-gray-300 mb-12 leading-relaxed">
-                    Révolutionnez la gestion de votre hôtel avec une plateforme moderne qui centralise réservations, clients, facturation et personnel en une interface intuitive et puissante.
+                    Révolutionnez la gestion de votre hôtel avec une plateforme moderne qui centralise réservations, clients, facturation et personnel en une interface intuitive et puissante. Réservez une chambre en quelques clics, sans inscription préalable.
                 </p>
 
                 <!-- Stats -->
@@ -221,7 +221,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
                     </a>
-                    <a href="/register" class="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-200">
+                    <a href="{{ route('public.rooms') }}" class="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl border-2 border-white/30 text-white hover:bg-white/10 hover:border-white/50 transition-all duration-200">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
                         </svg>

@@ -18,11 +18,11 @@ class StoreReservationRequest extends FormRequest
             // normalize to DB column names: id_chambre, date_debut, date_fin
             'id_chambre' => 'required|exists:rooms,id_chambre',
             'id_client' => 'nullable|exists:clients,id_client',
-            // require an email when no client id is provided
-            'client_email' => 'required_without:id_client|email|max:255',
-            'client_nom' => 'required_with:client_email|string|max:255',
-            'client_prenom' => 'required_with:client_email|string|max:255',
-            'client_telephone' => 'required_with:client_email|string|max:30',
+            // client details are optional for anonymous reservations
+            'client_email' => 'nullable|email|max:255',
+            'client_nom' => 'nullable|string|max:255',
+            'client_prenom' => 'nullable|string|max:255',
+            'client_telephone' => 'nullable|string|max:30',
             'date_debut' => 'required|date|after_or_equal:today',
             'date_fin' => 'required|date|after:date_debut',
             'guests' => 'nullable|integer|min:1',

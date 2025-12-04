@@ -43,8 +43,9 @@ class ReservationController extends Controller
             return back()->withErrors(['id_chambre' => 'La chambre n\'est pas disponible pour ces dates.'])->withInput();
         }
 
-        // Ensure we have an id_client: prefer provided id_client, otherwise
+        // Determine id_client: prefer provided id_client, otherwise
         // try to resolve from authenticated user or from the provided email.
+        // For anonymous reservations, id_client can be null.
         $clientId = $data['id_client'] ?? null;
 
         if (empty($clientId)) {
@@ -101,10 +102,7 @@ class ReservationController extends Controller
             }
         }
 
-            // If we still don't have a client id, return an error to the user
-            if (empty($clientId)) {
-                return back()->withErrors(['client_email' => 'Veuillez fournir une adresse email ou vous connecter pour continuer la réservation.'])->withInput();
-            }
+        // For anonymous reservations, clientId can be null
 
         // Create reservation and mark room as occupied in a transaction
         try {

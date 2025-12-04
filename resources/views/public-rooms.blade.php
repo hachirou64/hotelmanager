@@ -56,11 +56,7 @@
                     </div>
 
                     <div class="mt-6 flex space-x-2">
-                        @auth
                         <a href="#" id="modal-book-room-link" class="px-4 py-2 rounded-md bg-green-600 text-white hover:bg-green-700">Réserver cette chambre</a>
-                        @else
-                        <a href="/login" class="px-4 py-2 rounded-md bg-primary text-white hover:bg-primary-dark">Se connecter pour réserver</a>
-                        @endauth
                     </div>
                 </div>
             </div>
@@ -305,14 +301,9 @@
             @forelse($rooms as $room)
             <div class="bg-white dark:bg-slate-800 shadow-xl rounded-2xl overflow-hidden border border-gray-100 dark:border-slate-600 hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.02] mb-6">
                 <div class="md:flex">
-                    <!-- Room Image Placeholder -->
+                    <!-- Room Image -->
                     <div class="md:w-1/3 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-slate-700 dark:to-slate-600 flex items-center justify-center p-8">
-                        <div class="text-center">
-                            <svg class="w-16 h-16 text-gray-400 dark:text-slate-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-1 0h-1m-4 0H7m4 0v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6m9-10V5"></path>
-                            </svg>
-                            <p class="text-sm text-gray-500 dark:text-slate-400">Image à venir</p>
-                        </div>
+                        <img src="/images/image{{ ($loop->index % 5) + 1 }}.jpg" alt="Chambre {{ $room->numero_chambre }}" class="w-full h-48 object-cover rounded-lg shadow-md">
                     </div>
 
                     <!-- Room Details -->
@@ -375,21 +366,12 @@
                                 <span>Voir les détails</span>
                             </button>
 
-                            @auth
                             <a href="/book-room/{{ $room->id_chambre ?? $room->id }}{!! $date_debut && $date_fin ? '?date_debut=' . urlencode($date_debut) . '&date_fin=' . urlencode($date_fin) : '' !!}" id="book-room-link-{{ $room->id_chambre ?? $room->id }}" class="flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                                 <span>Réserver</span>
                             </a>
-                            @else
-                            <a href="/login" class="flex-1 bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                                </svg>
-                                <span>Se connecter</span>
-                            </a>
-                            @endauth
                         </div>
                     </div>
                 </div>
