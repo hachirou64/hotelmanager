@@ -17,6 +17,7 @@ class Room extends Model
         'type_chambre',
         'statut',
         'capacite_max',
+        'image',
     ];
 
     protected $casts = [
@@ -31,5 +32,24 @@ class Room extends Model
     public function reservations()
     {
         return $this->hasMany(Reservation::class, 'id_chambre', 'id_chambre');
+    }
+
+    /**
+     * Return a usable URL for the room image. Falls back to a source.unsplash image.
+     */
+    public function getImageUrlAttribute()
+    {
+        // prefer explicitly set image
+        if ($this->image) {
+            // if stored path (relative), use asset(), otherwise return as is
+            if (str_starts_with($this->image, 'http://') || str_starts_with($this->image, 'https://')) {
+                return $this->image;
+            }
+            return asset($this->image);
+        }
+
+        // fallback dynamic image from Unsplash
+        $id = $this->id_chambre ?? $this->id ?? rand(1, 1000);
+        return "https://source.unsplash.com/collection/190727/800x600?sig={$id}";
     }
 }

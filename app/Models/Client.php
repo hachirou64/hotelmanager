@@ -32,8 +32,13 @@ class Client extends Model
         return $this->hasMany(Reservation::class, 'id_client', 'id_client');
     }
 
-    public function invoices()
+public function invoices()
     {
         return $this->hasMany(Invoice::class, 'id_client', 'id_client');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

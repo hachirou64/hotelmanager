@@ -103,53 +103,90 @@
         </div>
     </div>
 
-    <!-- Header Section -->
-    <div class="mb-8">
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Gestion des Chambres</h1>
-        <p class="text-gray-600 dark:text-gray-300">Gérez les chambres de votre hôtel.</p>
-    </div>
-
-    <!-- Rooms List -->
-    <div class="bg-white dark:bg-slate-800 shadow rounded-lg">
-        <div class="px-4 py-5 sm:p-6">
-            <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white mb-4">Liste des Chambres</h3>
-            <div class="space-y-3">
-                @forelse($rooms as $room)
-                <div class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-600 rounded-lg">
+    <!-- Hero -->
+    <div class="relative mb-8 overflow-hidden rounded-lg">
+        <div class="bg-gray-100 dark:bg-slate-700">
+            <div class="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
+                <div class="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
                     <div>
-                        <p class="text-sm font-medium text-gray-900 dark:text-white">{{ $room->numero_chambre }}</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Type: {{ $room->roomType->nom_type ?? 'N/A' }} - Capacité: {{ $room->capacite_max }}</p>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Statut: {{ ucfirst($room->statut) }}</p>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-                            @if($room->statut === 'libre') bg-green-100 text-green-800
-                            @elseif($room->statut === 'occupée') bg-red-100 text-red-800
-                            @elseif($room->statut === 'nettoyage') bg-yellow-100 text-yellow-800
-                            @else bg-gray-100 text-gray-800
-                            @endif">
-                            {{ ucfirst($room->statut) }}
-                        </span>
+                        <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">Découvrez nos chambres</h1>
+                        <p class="mt-4 max-w-2xl text-lg text-gray-600 dark:text-gray-300">Des chambres confortables, propres et prêtes à vous accueillir. Parcourez nos offres et réservez en quelques clics.</p>
 
-                        <button type="button"
-                            class="view-room-btn inline-flex items-center px-3 py-1.5 bg-primary hover:bg-primary-dark text-white text-sm font-medium rounded-md"
-                            data-room-id="{{ $room->id_chambre ?? $room->id }}"
-                            data-room-number="{{ $room->numero_chambre }}"
-                            data-room-type="{{ $room->roomType->nom_type ?? '' }}"
-                            data-room-status="{{ $room->statut }}"
-                            data-room-capacity="{{ $room->capacite_max }}"
-                            data-room-price="{{ $room->roomType->prix_base ?? '' }}"
-                            data-room-description="{{ $room->description ?? $room->roomType->description ?? '' }}"
-                            onclick="openRoomModalFromButton(this)"
-                        >Voir</button>
+                        <div class="mt-6 flex space-x-3">
+                            <a href="#rooms-grid" class="inline-flex items-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark">Voir les chambres</a>
+                            <a href="/contact" class="inline-flex items-center px-5 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">Nous contacter</a>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 lg:mt-0">
+                        <div class="w-full h-56 rounded-lg overflow-hidden shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1501117716987-c8e6b4f0f3a1?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder" alt="Chambre d'hôtel" class="w-full h-full object-cover">
+                        </div>
                     </div>
                 </div>
-                @empty
-                <p class="text-sm text-gray-500 dark:text-gray-400">Aucune chambre trouvée</p>
-                @endforelse
             </div>
         </div>
     </div>
+
+    <!-- Rooms Grid -->
+    <section id="rooms-grid" class="mb-8">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Nos chambres</h2>
+        @if($rooms->isEmpty())
+            <p class="text-sm text-gray-500 dark:text-gray-400">Aucune chambre trouvée</p>
+        @else
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach($rooms as $room)
+            <div class="bg-white dark:bg-slate-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden border border-gray-100 dark:border-gray-700">
+                <div class="w-full h-40 bg-gray-100 dark:bg-slate-700 overflow-hidden">
+                    <img src="{{ $room->image_url }}" alt="Chambre {{ $room->numero_chambre }}" class="w-full h-full object-cover" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/rooms/placeholder.svg') }}'">
+                </div>
+                <div class="p-4">
+                    <div class="flex items-start justify-between">
+                        <div>
+                            <p class="text-lg font-semibold text-gray-900 dark:text-white">{{ $room->numero_chambre }}</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">{{ $room->roomType->nom_type ?? '—' }} • {{ $room->capacite_max }} personne{{ $room->capacite_max > 1 ? 's' : '' }}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-sm text-gray-500">{{ $room->roomType->prix_base ? number_format($room->roomType->prix_base, 2, ',', ' ') . ' €' : '—' }}</p>
+                        </div>
+                    </div>
+
+                    <p class="mt-3 text-sm text-gray-600 dark:text-gray-300">{{ Str::limit($room->description ?? $room->roomType->description ?? 'Pas de description', 100) }}</p>
+
+                    <div class="mt-4 flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium
+                                @if($room->statut === 'libre') bg-green-100 text-green-800
+                                @elseif($room->statut === 'occupée') bg-red-100 text-red-800
+                                @elseif($room->statut === 'nettoyage') bg-yellow-100 text-yellow-800
+                                @else bg-gray-100 text-gray-800
+                                @endif">
+                                {{ ucfirst($room->statut) }}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <button type="button"
+                                class="view-room-btn inline-flex items-center px-3 py-1.5 bg-primary hover:bg-primary-dark text-white text-sm font-medium rounded-md"
+                                data-room-id="{{ $room->id_chambre ?? $room->id }}"
+                                data-room-number="{{ $room->numero_chambre }}"
+                                data-room-type="{{ $room->roomType->nom_type ?? '' }}"
+                                data-room-status="{{ $room->statut }}"
+                                data-room-capacity="{{ $room->capacite_max }}"
+                                data-room-price="{{ $room->roomType->prix_base ?? '' }}"
+                                data-room-description="{{ $room->description ?? $room->roomType->description ?? '' }}"
+                                onclick="openRoomModalFromButton(this)"
+                            >Voir</button>
+
+                            <button type="button" onclick="openReservationModal('{{ $room->id_chambre ?? $room->id }}')" class="px-3 py-1.5 bg-white border border-gray-200 rounded-md text-sm text-gray-700 hover:bg-gray-50">Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
+    </section>
 
     <script>
         // Modal logic for viewing a room (wait for DOM ready)

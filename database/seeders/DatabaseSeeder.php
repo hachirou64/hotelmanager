@@ -59,6 +59,7 @@ class DatabaseSeeder extends Seeder
             'type_chambre' => $singleRoom->id_type,
             'statut' => 'libre',
             'capacite_max' => 1,
+            'image' => 'https://images.unsplash.com/photo-1505692794400-2b1cae0b44a9?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=example',
         ]);
 
         Room::create([
@@ -66,6 +67,7 @@ class DatabaseSeeder extends Seeder
             'type_chambre' => $doubleRoom->id_type,
             'statut' => 'libre',
             'capacite_max' => 2,
+            'image' => 'https://images.unsplash.com/photo-1501117716987-c8e6b4f0f3a1?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=example',
         ]);
 
         Room::create([
@@ -73,6 +75,7 @@ class DatabaseSeeder extends Seeder
             'type_chambre' => $suiteRoom->id_type,
             'statut' => 'libre',
             'capacite_max' => 4,
+            'image' => 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=1600&auto=format&fit=crop&ixlib=rb-4.0.3&s=example',
         ]);
 
         // Create clients with associated users

@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes réservations</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-</head>
-<body class="bg-gray-50 min-h-screen">
-    <div class="max-w-4xl mx-auto p-6">
-        <h1 class="text-2xl font-bold mb-4">Mes réservations</h1>
+@extends('layouts.client')
+
+@section('title', 'Mes Réservations')
+
+@section('content')
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Mes réservations</h1>
 
         <div class="bg-white shadow rounded-lg p-4">
             @if($reservations->isEmpty())
@@ -31,12 +26,16 @@
                                     <a href="{{ route('reservations.pay.form', $reservation) }}" class="inline-block px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700">Payer avec MOMO</a>
                                 </div>
                             @endif
+                            @if($reservation->invoice && $reservation->invoice->statut_paiement === 'payée')
+                                <div class="mt-2">
+                                    <a href="{{ route('invoices.download', $reservation->invoice) }}" class="inline-block px-3 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700">Télécharger Facture</a>
+                                </div>
+                            @endif
                         </div>
                     </li>
                     @endforeach
                 </ul>
-            @endif
+@endif
         </div>
     </div>
-</body>
-</html>
+@endsection

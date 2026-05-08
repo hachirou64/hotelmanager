@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\RefreshRoomsStatus::class,
+        \App\Console\Commands\FetchRoomImages::class,
+        \App\Console\Commands\LinkLocalRoomImages::class,
     ];
 
     /**

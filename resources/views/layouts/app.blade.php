@@ -5,60 +5,90 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>@yield('title', 'Hôtel Manager')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- Chargement de Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Raffinement des teintes primary : teal moderne */
+            --color-primary: #0ea5a4; /* teal-500 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .text-primary { color: var(--color-primary); }
+        .bg-primary { background-color: var(--color-primary); }
+        .hover\:bg-primary-dark:hover { background-color: #1d4ed8; }
+
+        /* Styles Dark Mode */
+        body.dark {
+            background-color: #0f172a; /* slate-900 */
+            color: #f8fafc; /* slate-50 */
+        }
+        .dark .bg-white { background-color: #1e293b; /* slate-800 */ }
+        .dark .text-gray-900 { color: #f8fafc; }
+        .dark .text-gray-600 { color: #94a3b8; }
+    </style>
+
     <script>
+        // Configuration Tailwind pour le Dark Mode
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        primary: '#2563eb',
-                        'primary-dark': '#1d4ed8',
+                        primary: {
+                            DEFAULT: '#0ea5a4', /* teal-500 */
+                            dark: '#0b7285',
+                        },
                     }
                 }
             }
         }
-    </script>
-    <style>
-        body {
-            background-color: #f8fafc;
-        }
 
-        @media (prefers-color-scheme: dark) {
-            body.dark-theme {
-                background-color: #0f172a;
+        function updateThemeIcon() {
+            const desktopButton = document.getElementById('theme-toggle');
+            const mobileButton = document.getElementById('theme-toggle-mobile');
+            if (document.body.classList.contains('dark')) {
+                const moonIcon = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>';
+                if (desktopButton) desktopButton.innerHTML = moonIcon;
+                if (mobileButton) mobileButton.innerHTML = moonIcon;
+            } else {
+                const sunIcon = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>';
+                if (desktopButton) desktopButton.innerHTML = sunIcon;
+                if (mobileButton) mobileButton.innerHTML = sunIcon;
             }
         }
 
-        .dark-theme {
-            background-color: #0f172a !important;
+        function setupDarkMode() {
+            const isDark = localStorage.getItem('theme') === 'dark' ||
+                           (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+            if (isDark) {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+            updateThemeIcon();
         }
 
-        .dark-theme .bg-white {
-            background-color: #1e293b !important;
+        function toggleDarkMode() {
+            if (document.body.classList.contains('dark')) {
+                document.body.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateThemeIcon();
         }
 
-        .dark-theme .text-gray-900 {
-            color: #f1f5f9 !important;
-        }
-
-        .dark-theme .text-gray-600 {
-            color: #94a3b8 !important;
-        }
-
-        .dark-theme .text-gray-500 {
-            color: #64748b !important;
-        }
-
-        .dark-theme .border-gray-200 {
-            border-color: #334155 !important;
-        }
-
-        .dark-theme .hover\:bg-gray-50:hover {
-            background-color: #334155 !important;
-        }
-    </style>
+        window.onload = setupDarkMode;
+    </script>
 </head>
-<body class="bg-gray-50 dark:bg-slate-900 {{ auth()->user()->preferences['theme'] ?? 'auto' === 'dark' ? 'dark-theme' : '' }}">
+<body class="bg-gray-50">
     <!-- HEADER -->
     <header class="fixed top-0 w-full bg-white dark:bg-slate-800 shadow-sm border-b border-gray-200 dark:border-gray-700 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,6 +114,11 @@
 
                 <!-- User Menu & Notifications -->
                 <div class="flex items-center space-x-4">
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" onclick="toggleDarkMode()" class="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-700 transition-colors duration-200" aria-label="Toggle Dark Mode">
+                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+
                     <!-- Notifications -->
                     <button class="p-2 text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 relative">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -216,10 +251,6 @@
         </main>
     </div>
 
-    <footer class="mt-12 py-6 border-t border-gray-200 dark:border-gray-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-gray-500 dark:text-gray-400">© {{ date('Y') }} Hôtel Manager</div>
-    </footer>
-
     <script>
         // User menu toggle
         document.getElementById('user-menu-button').addEventListener('click', function() {
@@ -248,29 +279,6 @@
             const overlay = document.getElementById('sidebar');
             sidebar.classList.add('-translate-x-full');
             overlay.classList.add('hidden');
-        }
-
-        // Apply theme on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentTheme = '{{ auth()->user()->preferences['theme'] ?? 'auto' }}';
-            applyTheme(currentTheme);
-        });
-
-        // Theme switching functionality
-        function applyTheme(theme) {
-            const body = document.body;
-            if (theme === 'dark') {
-                body.classList.add('dark-theme');
-            } else if (theme === 'light') {
-                body.classList.remove('dark-theme');
-            } else if (theme === 'auto') {
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (prefersDark) {
-                    body.classList.add('dark-theme');
-                } else {
-                    body.classList.remove('dark-theme');
-                }
-            }
         }
     </script>
 

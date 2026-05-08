@@ -18,7 +18,7 @@ class ClientReservationController extends Controller
         $client = $user->client ?? null;
 
         if ($client) {
-            $reservations = Reservation::where('id_client', $client->id_client)->with('room')->orderBy('date_debut', 'desc')->get();
+            $reservations = Reservation::where('id_client', $client->id_client)->with(['room', 'invoice'])->orderBy('date_debut', 'desc')->get();
         } else {
             $reservations = collect();
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InvoiceController extends Controller
 {
@@ -50,5 +51,19 @@ class InvoiceController extends Controller
     {
         $invoice->delete();
         return response()->noContent();
+    }
+
+    public function download(Invoice $invoice)
+    {
+        // Ensure the invoice belongs to the authenticated client if not admin
+        if (auth()->check() && auth()->user()->role->nom_role !== 'admin') {
+            if ($invoice->id_client !== auth()->user()->client->id_client) {
+                abort(403);
+            }
+        }
+
+        $pdf = Pdf::loadView('emails.invoice', compact('invoice'));
+
+        return $pdf->download('facture_' . $invoice->id_facture . '.pdf');
     }
 }

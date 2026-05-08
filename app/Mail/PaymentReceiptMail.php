@@ -38,12 +38,19 @@ class PaymentReceiptMail extends Mailable
      */
     public function build()
     {
+        $pdf = Pdf::loadView('emails.invoice', [
+            'invoice' => $this->invoice,
+        ]);
+
         return $this->subject('Reçu de paiement - Hôtel Manager')
                     ->view('emails.payment_receipt')
                     ->with([
                         'client' => $this->client,
                         'invoice' => $this->invoice,
                         'payment' => $this->payment,
+                    ])
+                    ->attachData($pdf->output(), 'facture_' . $this->invoice->id_facture . '.pdf', [
+                        'mime' => 'application/pdf',
                     ]);
     }
 }

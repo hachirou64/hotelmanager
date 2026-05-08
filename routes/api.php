@@ -29,6 +29,7 @@ Route::resource('rooms', RoomController::class);
 Route::resource('clients', ClientController::class);
 Route::resource('reservations', ApiReservationController::class);
 Route::resource('personnel', PersonnelController::class);
+
 Route::resource('invoices', InvoiceController::class);
 Route::resource('payments', PaymentController::class);
 Route::resource('promotions', PromotionController::class);
